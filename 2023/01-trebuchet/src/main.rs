@@ -1,3 +1,5 @@
+// TODO: refactor to separate files
+
 fn get_first_and_last_num(s: &str) -> u16 {
     let list_of_numbers: Vec<u16> = s
         .chars()
@@ -54,6 +56,7 @@ fn main() {
     println!("Result #2: {:?}", numbs.iter().sum::<u16>());
 }
 
+// TODO: make tests clean and clear
 #[cfg(test)]
 mod tests {
     use crate::get_first_and_last_num;
