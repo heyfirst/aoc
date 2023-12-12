@@ -40,7 +40,6 @@ fn main() {
     let loaded_puzzle = std::fs::read_to_string("puzzle.txt").unwrap();
     let lines = loaded_puzzle.split("\n").collect::<Vec<&str>>();
     let numbs = lines
-        .clone()
         .iter()
         .map(|s| get_first_and_last_num(*s))
         .collect::<Vec<u16>>();
@@ -48,7 +47,6 @@ fn main() {
     println!("Result #1: {:?}", numbs.iter().sum::<u16>());
 
     let numbs = lines
-        .clone()
         .iter()
         .map(|s| get_first_and_last_num_including_str(*s))
         .collect::<Vec<u16>>();
