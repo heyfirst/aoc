@@ -1,3 +1,67 @@
+fn get_points_from_scratchcards(s: &str) -> u16 {
+    let mut points = 0;
+    let mut scratchcards = s.split(" | ");
+
+    let winning_card = scratchcards
+        .next()
+        .unwrap()
+        .split(": ")
+        .last()
+        .unwrap()
+        .split_whitespace()
+        .collect::<Vec<&str>>();
+
+    let my_card_numbers = scratchcards
+        .next()
+        .unwrap()
+        .split_whitespace()
+        .collect::<Vec<&str>>();
+
+    for number in my_card_numbers {
+        if winning_card.contains(&number) {
+            points += match points {
+                0 => 1,
+                n => n,
+            };
+        }
+    }
+
+    points
+}
+
 fn main() {
-    println!("Hello, world!");
+    let lines = include_str!("puzzle.txt").lines();
+
+    println!(
+        "Total points from scratchcards: {}",
+        lines
+            .map(|line| get_points_from_scratchcards(line))
+            .sum::<u16>()
+    );
+}
+
+#[cfg(test)]
+mod test {
+    use crate::get_points_from_scratchcards;
+
+    #[test]
+    fn should_return_points_from_scratchcards() {
+        let s = "Card 1: 41 48 83 86 17 | 83 86  6 31 17 9 48 53";
+        assert_eq!(get_points_from_scratchcards(s), 8);
+
+        let s = "Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19";
+        assert_eq!(get_points_from_scratchcards(s), 2);
+
+        let s = "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1";
+        assert_eq!(get_points_from_scratchcards(s), 2);
+
+        let s = "Card 4: 41 92 73 84 69 | 59 84 76 51 58 5 54 83";
+        assert_eq!(get_points_from_scratchcards(s), 1);
+
+        let s = "Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36";
+        assert_eq!(get_points_from_scratchcards(s), 0);
+
+        let s = "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11";
+        assert_eq!(get_points_from_scratchcards(s), 0);
+    }
 }
