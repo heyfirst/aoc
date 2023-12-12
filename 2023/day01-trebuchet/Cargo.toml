@@ -1,5 +1,5 @@
 [package]
-name = "d03-gear-ratios"
+name = "day01-trebuchet"
 version = "0.1.0"
 edition = "2021"
 
